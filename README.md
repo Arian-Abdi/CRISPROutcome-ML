@@ -11,6 +11,33 @@ This pipeline predicts four key outcomes of CRISPR-Cas9 editing:
 - Indel diversity
 - Fraction of frameshifts
 
+## Input Data Requirements
+
+### Required DataFrame Format
+The pipeline expects input data in a pandas DataFrame with the following required columns:
+- `Id`: Unique identifier for each sequence
+- `GuideSeq`: DNA sequence consisting of 23 base pairs
+
+### Sequence Requirements
+The `GuideSeq` column must contain sequences that meet these specifications:
+- Total length: 23 base pairs
+- First 20 bp: Guide sequence
+- Last 3 bp: PAM sequence
+
+Example format:
+```python
+data = pd.DataFrame({
+    'Id': [0, 1, 2],
+    'GuideSeq': [
+        'CTGCAGGGCTAGTTTCCTATAGG',  # 20bp guide + 3bp PAM
+        'GAGATGCGGACCACCCAGCTGGG',
+        'GCAAACGGAAGTGCAATTGTCGG'
+    ]
+})
+```
+
+⚠️ **Note**: Sequences not meeting these requirements may cause pipeline errors or produce invalid predictions.
+
 ## Features
 
 The pipeline implements:
